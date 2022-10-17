@@ -1,0 +1,17 @@
+name: Update matrix
+on:
+  push:
+    branches:
+      - main
+      - regen-matrix-action
+jobs:
+  update-matrix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: echo "Test" >> matrix.md
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          add-paths: matrix.md
+          commit-message: Update matrix.md after push to main
