@@ -150,3 +150,4 @@ go run cmd/testmatrix/main.go --project-id=opentelemetry-ops-e2e > matrix.md
 ```
 
 This will fetch recent Cloud Build logs to automatically update the statuses in this matrix.
+Test
