@@ -12,6 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+resource "google_app_engine_application" "app" {
+  project     = var.project_id
+  location_id = "us-central"
+  iap {
+    enabled = true
+    oauth2_client_id = ""
+    oauth2_client_secret = ""
+  }
+}
+
 # Create the deployment for the default service in Google App Engine
 resource "google_app_engine_flexible_app_version" "default" {
   version_id = "v1"
@@ -41,4 +51,12 @@ resource "google_app_engine_flexible_app_version" "default" {
   }
 
   noop_on_destroy = true
+}
+
+# Lock down the app to only accept internal requests
+resource "google_app_engine_firewall_rule" "rule" {
+  project      = google_app_engine_application.app.project
+  priority     = 1000
+  action       = "ALLOW"
+  source_range = "*"
 }

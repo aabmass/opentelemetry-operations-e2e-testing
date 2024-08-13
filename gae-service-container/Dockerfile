@@ -22,4 +22,6 @@
 
 FROM python:3-alpine
 EXPOSE 8080
-ENTRYPOINT ["python", "-m", "http.server", "8080"]
+RUN pip install Flask
+COPY main.py .
+ENTRYPOINT ["python", "-u", "main.py"]
